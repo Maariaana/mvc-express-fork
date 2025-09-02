@@ -1,26 +1,19 @@
-const DB = require("../db");
+const { DataTypes } = require('sequelize');
+const DB = require('../db');
 
-const livroModel = {
-  getAll: async () => {
-    const response = await DB.get('/livros');
-    return response.data;
+const livros = DB.define('livros', {
+  titulo: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
-
-  getById: async (id) => {
-    const response = await DB.get(`/livros/${id}`);
-    return response.data;
+  autor: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
-
-  add: async (novoLivro) => {
-    const response = await DB.post('/livros', novoLivro);
-    return response.data;
+  ano: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
+});
 
-  update: async (id, livroAtualizado) => {
-    const response = await DB.put(`/livros/${id}`, livroAtualizado);
-    return response.data;
-  }
-
-};
-
-module.exports = livroModel;
+module.exports = livros;
